@@ -1,21 +1,25 @@
-import express from 'express'
-import cors from 'cors'
+const express = require('express');
+const cors = require('cors');
+const routes = require('./routes');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-//middlewar
+const app = express();
 const whitelist = ['http://localhost:3000', 'https://chivomap.vercel.app'];
-const options = {
+const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin) {
       callback(null, true);
     } else {
-      console.log('forbidden')
-      // todo: callback(new Error(boom.forbidden('Access denied due to CORS security restrictions')));
+      callback(new Error('Access denied due to CORS security restrictions'));
     }
   }
-}
-app.use(cors(options));
+};
 
-export default app
+// Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
+
+// Rutas
+app.use('/api', routes);
+
+module.exports = app;
