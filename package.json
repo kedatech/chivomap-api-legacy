@@ -1,0 +1,33 @@
+{
+  "name": "chivomap-api",
+  "version": "1.0.0",
+  "description": "'municipios' api of el salvador",
+  "main": "index.js",
+  "scripts": {
+    "start":"index.js",
+    "dev":"nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kedatech/chivomap-api.git"
+  },
+  "keywords": [
+    "map",
+    "chivomap",
+    "javascript"
+  ],
+  "author": "kedatech",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/kedatech/chivomap-api/issues"
+  },
+  "homepage": "https://github.com/kedatech/chivomap-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
