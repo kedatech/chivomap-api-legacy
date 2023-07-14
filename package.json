@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "'municipios' api of el salvador",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start":"index.js",
     "dev":"nodemon index.js"
