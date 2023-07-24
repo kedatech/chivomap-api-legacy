@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_DB=chivo_map
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=@dm1N
+      - POSTGRES_PORT=5432
+    volumes:
+      - ~/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
