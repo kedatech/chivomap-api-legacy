@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const routes = require('./routes');
+import express from 'express';
+import cors from 'cors';
+import routes from './routes/index.js';
 
 const app = express();
 const whitelist = ['http://localhost:3000', 'https://chivomap.vercel.app'];
@@ -22,4 +22,4 @@ app.use(cors(corsOptions));
 // Rutas
 app.use('/api', routes);
 
-module.exports = app;
+export default app;

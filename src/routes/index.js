@@ -1,15 +1,28 @@
-const router = require("express").Router()
-const fs = require("fs")
-const path = __dirname
+import { readdirSync } from 'fs';
+import { join, extname } from 'path';
+import { fileURLToPath } from 'url';
+import { Router } from 'express';
 
-const removeExtension = (fileName) => fileName.split(".").shift()
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = join(__filename, '..');
 
+const PATH_ROUTER = __dirname;
+const router = Router();
 
-fs.readdirSync(path).forEach(file => {
-  const name = removeExtension(file)
-  if (name != "index") {
-    router.use(`/${name}`, require(`./${name}.routes.js`))
+/** Limpiar el nombre de la carpeta routes */
+const cleanFileName = (fileName) => fileName.split('.').shift() || '';
+
+/** Leer /routes y usar cada una de las rutas */
+readdirSync(PATH_ROUTER).forEach(async (fileName) => {
+  const cleanName = cleanFileName(fileName);
+
+  if (cleanName !== 'index' && cleanName.length > 0) {
+    if (extname(fileName) === '.js') {
+      const moduleRoute = await import(`./${fileName}`);
+      console.log(`cargando la ruta ${cleanName}`);
+      router.use(`/${cleanName}`, moduleRoute.default);
+    }
   }
-})
+});
 
-module.exports = router
+export default router;
