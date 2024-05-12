@@ -24,3 +24,17 @@ export const getMunicipios = (departamento) => {
     return municipios;
 }
 
+
+// función para obtener un objeto con nombres de { departamentos[], municipios[], distritos[] }
+export const getGeoData = () => {
+    if (!data || !data.objects || !data.objects.collection) {
+        throw new Error('No se encontraron datos válidos');
+    }
+
+    const geojson = feature(data, data.objects.collection);
+    const departamentos = [...new Set(geojson.features.map(item => item.properties.D))];
+    const municipios = [...new Set(geojson.features.map(item => item.properties.M))];
+    const distritos = [...new Set(geojson.features.map(item => item.properties.NAM))];
+
+    return { departamentos, municipios, distritos };
+}
