@@ -5,12 +5,13 @@ const data = JSON.parse(file);
 const { feature } = topojson;
 
 // Función para obtener los municipios de un departamento
-export const getMunicipios = (departamento) => {
+export const getMunicipios = (query, whatIs) => {
+    // whatIs solo puede ser 'departamento' o 'municipio' o 'distrito'
+    if (!whatIs || (whatIs !== 'D' && whatIs !== 'M' && whatIs !== 'NAM')) {
+        throw new Error('El segundo parámetro debe ser "M" o "D" o "NAM"');
+    }
 
-    console.log('departamento', departamento)
-    const departamentoUpper = departamento.toUpperCase();
-
-    if (!data || !data.objects || !data.objects.collection) {
+    if (!data?.objects?.collection) {
         throw new Error('No se encontraron datos válidos');
     }
 
@@ -18,7 +19,7 @@ export const getMunicipios = (departamento) => {
   
     // Filtrar los municipios correspondientes al departamento especificado
     const municipios = geojson.features.filter (item => { 
-        return item.properties.D == departamentoUpper;
+        return item.properties[whatIs] === query;
     });
 
     return municipios;
@@ -27,7 +28,7 @@ export const getMunicipios = (departamento) => {
 
 // función para obtener un objeto con nombres de { departamentos[], municipios[], distritos[] }
 export const getGeoData = () => {
-    if (!data || !data.objects || !data.objects.collection) {
+    if (!data?.objects?.collection) {
         throw new Error('No se encontraron datos válidos');
     }
 

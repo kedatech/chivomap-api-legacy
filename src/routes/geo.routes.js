@@ -3,9 +3,10 @@ const router = Router();
 import { getMunicipios, getGeoData } from '../services/geo.services.js';
 
 
-router.get('/getbyDepartamento', (req, res) => {
-  const departamento = req.query.departamento;
-  const municipios = getMunicipios(departamento);
+router.get('/filter', (req, res) => {
+  const query = req.query.query;
+  const whatIs = req.query.whatIs;
+  const municipios = getMunicipios(query, whatIs);
   res.json(municipios);
 });
 
