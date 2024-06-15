@@ -3,7 +3,7 @@ import cors from 'cors';
 import routes from './routes/index.js';
 
 const app = express();
-const whitelist = ['http://localhost:3000', 'https://chivomap.vercel.app'];
+const whitelist = ['http://localhost:3000', 'https://chivomap.vercel.app', 'https://chivomap.com'];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin) {
