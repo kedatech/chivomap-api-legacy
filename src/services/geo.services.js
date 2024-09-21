@@ -6,11 +6,16 @@ const file = await readFile('./assets/topo.json', 'utf-8');
 const data = JSON.parse(file);
 const { feature } = topojson;
 
-// Función para obtener los municipios de un departamento
+/**
+ * Función para obtener los municipios de un departamento
+ * @param {string} query - El valor a buscar (nombre del departamento, municipio o distrito)
+ * @param {string} whatIs - El tipo de búsqueda ('D' para departamento, 'M' para municipio, 'NAM' para distrito)
+ * @returns {Object} - Un FeatureCollection con los municipios filtrados
+ */
 export const getMunicipios = (query, whatIs) => {
   // Validar whatIs
   if (!whatIs || (whatIs !== 'D' && whatIs !== 'M' && whatIs !== 'NAM')) {
-    throw new Error('El segundo parámetro debe ser "M" o "D" o "NAM"');
+    throw new Error('El segundo parámetro debe ser "M", "D" o "NAM"');
   }
 
   // Validar que los datos existan
@@ -32,7 +37,6 @@ export const getMunicipios = (query, whatIs) => {
     features: municipios // Aseguramos que sea un array de features
   };
 };
-
 
 
 // función para obtener un objeto con nombres de { departamentos[], municipios[], distritos[] }
